@@ -36,9 +36,46 @@ Cloudflare Pages will connect to the GitHub repository and deploy `main` to prod
 
 Game logic uses pure functions separate from React components. Side effects such as timers and randomness are kept at the edges to make the logic easy to test.
 
+## Development
+
+Install [mise and activate it in your shell](https://mise.jdx.dev/getting-started.html) before setting up the project. Node.js is pinned in `mise.toml`; npm is bundled with that Node.js version.
+
+### First-time setup
+
+Run these commands from the repository root:
+
+```sh
+mise trust
+mise install
+node --version
+npm ci
+```
+
+Confirm that `node --version` matches the version in `mise.toml`. `npm ci` installs the dependencies recorded in `package-lock.json`.
+
+### Local development
+
+```sh
+npm run dev
+```
+
+Open the local URL printed by Vite. The current app displays only its name; game features are not implemented yet.
+
+### Checks and formatting
+
+```sh
+npm run lint
+npm test
+npm run build
+```
+
+Use `npm run format` to format files, and `npm run test:watch` to run tests in watch mode. The lint command checks formatting, import ordering, and lint rules without modifying files.
+
+The production build is written to `dist/`. Use `npm run preview` after building to preview it locally.
+
 ## CI
 
-The GitHub Actions workflow, **PR Checks**, currently prints Hello World on pull requests, with lint, test, and build planned. Deployment is handled by Cloudflare Pages Git integration.
+The GitHub Actions workflow, **PR Checks**, runs lint, tests, and a production build on pull requests targeting `main`. CI reads the Node.js version from `mise.toml` and installs dependencies with `npm ci`. Deployment is handled by Cloudflare Pages Git integration.
 
 ## Tech Stack
 
