@@ -75,7 +75,7 @@ The production build is written to `dist/`. Use `npm run preview` after building
 
 ## CI
 
-The GitHub Actions workflow, **PR Checks**, runs lint, tests, and a production build on pull requests targeting `main`. CI reads the Node.js version from `mise.toml` and installs dependencies with `npm ci`. Deployment is handled by Cloudflare Pages Git integration.
+The GitHub Actions workflow, **PR Checks**, runs lint, tests, and a production build on pull requests targeting `main`. CI uses the same Node.js version as `mise.toml` and installs dependencies with `npm ci`. When updating Node.js, update both `mise.toml` and `.github/workflows/pr-checks.yml`. Deployment is handled by Cloudflare Pages Git integration.
 
 ## Tech Stack
 
