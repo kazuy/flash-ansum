@@ -4,3 +4,10 @@
 # IDE
 .idea/
 .vscode/
+
+# Dependencies and build output
+node_modules/
+dist/
+
+# Local logs
+*.log
