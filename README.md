@@ -59,7 +59,7 @@ Confirm that `node --version` matches the version in `mise.toml`. `npm ci` insta
 npm run dev
 ```
 
-Open the local URL printed by Vite. The current app displays only its name; game features are not implemented yet.
+Open the local URL printed by Vite.
 
 ### Checks and formatting
 
