@@ -15,7 +15,9 @@ body {
 }
 
 .top-screen,
-.settings-screen {
+.settings-screen,
+.game-screen,
+.answer-screen {
   font-family: "Yomogi", cursive;
   min-height: 100svh;
   display: flex;
@@ -28,7 +30,8 @@ body {
 }
 
 .top-screen h1,
-.settings-screen h1 {
+.settings-screen h1,
+.answer-screen h1 {
   margin: 0;
   font-size: clamp(2.5rem, 10vw, 4.5rem);
   font-weight: 400;
@@ -36,7 +39,8 @@ body {
 }
 
 .top-screen button,
-.settings-screen button {
+.settings-screen button,
+.answer-screen button {
   max-width: 100%;
   padding: 0.875rem 1.75rem;
   border: 2px solid currentColor;
@@ -50,12 +54,14 @@ body {
 }
 
 .top-screen button:hover,
-.settings-screen button:hover:not(:disabled) {
+.settings-screen button:hover:not(:disabled),
+.answer-screen button:hover:not(:disabled) {
   background-color: #ffffff14;
 }
 
 .top-screen button:focus-visible,
-.settings-screen button:focus-visible {
+.settings-screen button:focus-visible,
+.answer-screen button:focus-visible {
   outline: 3px solid #f4f3e9;
   outline-offset: 5px;
 }
@@ -118,7 +124,41 @@ body {
   margin: 0.75rem 0 0;
 }
 
-.settings-screen button:disabled {
+.settings-screen button:disabled,
+.answer-screen button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.game-number {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  font-size: clamp(5rem, 25vw, 12rem);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.answer-screen {
+  gap: 1.5rem;
+}
+
+.answer-screen h1 {
+  font-size: clamp(2rem, 8vw, 3rem);
+}
+
+.answer-screen input {
+  width: min(100%, 20rem);
+  padding: 0.75rem;
+  border: 2px solid currentColor;
+  border-radius: 0.5rem;
+  font: inherit;
+  font-size: 1.5rem;
+  color: inherit;
+  background-color: transparent;
+  text-align: center;
+}
+
+.answer-screen input:focus-visible {
+  outline: 3px solid #f4f3e9;
+  outline-offset: 4px;
 }

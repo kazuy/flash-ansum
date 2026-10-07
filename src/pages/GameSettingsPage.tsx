@@ -17,11 +17,13 @@ export type GameSettings = {
 type GameSettingsPageProps = {
   settings: GameSettings;
   onChange: (settings: GameSettings) => void;
+  onStart: () => void;
 };
 
 export default function GameSettingsPage({
   settings,
   onChange,
+  onStart,
 }: GameSettingsPageProps) {
   return (
     <main className="settings-screen">
@@ -40,7 +42,7 @@ export default function GameSettingsPage({
         value={settings.maximumDigits}
         onChange={(maximumDigits) => onChange({ ...settings, maximumDigits })}
       />
-      <button type="button" disabled>
+      <button type="button" onClick={onStart}>
         ゲームをはじめる
       </button>
     </main>

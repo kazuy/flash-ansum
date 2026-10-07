@@ -1,12 +1,13 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { expect, test, vi } from "vitest";
 import GameSettingsPage from "../../src/pages/GameSettingsPage";
 
-test("displays setting groups, supplied values, and a disabled start button", () => {
+test("displays setting groups, supplied values, and an enabled start button", () => {
   render(
     <GameSettingsPage
       settings={{ numberCount: 10, displayInterval: 500, maximumDigits: 2 }}
       onChange={vi.fn()}
+      onStart={vi.fn()}
     />,
   );
 
@@ -21,5 +22,19 @@ test("displays setting groups, supplied values, and a disabled start button", ()
   }
   expect(
     screen.getByRole("button", { name: "ゲームをはじめる" }),
-  ).toBeDisabled();
+  ).toBeEnabled();
+});
+
+test("starts a game when the start button is clicked", () => {
+  const onStart = vi.fn();
+  render(
+    <GameSettingsPage
+      settings={{ numberCount: 5, displayInterval: 800, maximumDigits: 1 }}
+      onChange={vi.fn()}
+      onStart={onStart}
+    />,
+  );
+  fireEvent.click(screen.getByRole("button", { name: "ゲームをはじめる" }));
+
+  expect(onStart).toHaveBeenCalledOnce();
 });
