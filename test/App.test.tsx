@@ -77,3 +77,62 @@ test("preserves selected settings when changing other settings", () => {
   expect(screen.getByRole("radio", { name: "3桁" })).toBeChecked();
   expect(screen.getAllByRole("radio", { checked: true })).toHaveLength(3);
 });
+
+test.each([
+  { answer: "45", verdict: "正解！" },
+  { answer: "0", verdict: "不正解" },
+])(
+  "shows $verdict after submitting $answer and returns to a fresh flow",
+  ({ answer, verdict }) => {
+    vi.useFakeTimers();
+    vi.spyOn(Math, "random").mockReturnValue(1 - Number.EPSILON);
+    openSettings();
+    fireEvent.click(screen.getByRole("radio", { name: "300 ms" }));
+    fireEvent.click(screen.getByRole("button", { name: "ゲームをはじめる" }));
+    for (let index = 0; index < 5; index++) {
+      act(() => vi.advanceTimersByTime(300));
+    }
+
+    expect(screen.queryByText("正しい答え")).toBeNull();
+    expect(screen.queryByText("45")).toBeNull();
+    fireEvent.change(screen.getByRole("textbox", { name: "あなたの答え" }), {
+      target: { value: answer },
+    });
+    expect(screen.queryByText("正しい答え")).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "採点する" }));
+    expect(screen.getByRole("heading", { name: "結果" })).toBeVisible();
+    expect(screen.getByText(verdict)).toBeVisible();
+    expect(
+      screen.getByText("あなたの答え").nextElementSibling,
+    ).toHaveTextContent(answer);
+    expect(screen.getByText("正しい答え").nextElementSibling).toHaveTextContent(
+      "45",
+    );
+    expect(screen.queryByRole("textbox")).toBeNull();
+    expect(screen.queryByRole("button", { name: /リトライ/ })).toBeNull();
+
+    fireEvent.click(screen.getByRole("button", { name: "トップに戻る" }));
+    expect(
+      screen.getByRole("heading", { name: "フラッシュ暗算" }),
+    ).toBeVisible();
+    expect(screen.queryByText("正しい答え")).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "ゲームをはじめる" }));
+    expect(screen.getByRole("radio", { name: "800 ms" })).toBeChecked();
+    vi.mocked(Math.random).mockReturnValue(0);
+    fireEvent.click(screen.getByRole("button", { name: "ゲームをはじめる" }));
+    for (let index = 0; index < 5; index++) {
+      act(() => vi.advanceTimersByTime(800));
+    }
+    expect(screen.getByRole("textbox", { name: "あなたの答え" })).toHaveValue(
+      "",
+    );
+    fireEvent.change(screen.getByRole("textbox", { name: "あなたの答え" }), {
+      target: { value: "5" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "採点する" }));
+    expect(screen.getByText("正解！")).toBeVisible();
+    expect(screen.getByText("正しい答え").nextElementSibling).toHaveTextContent(
+      "5",
+    );
+  },
+);
