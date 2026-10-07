@@ -7,9 +7,14 @@ afterEach(() => {
   vi.useRealTimers();
 });
 
-test.each([1000, 800, 500, 300])(
-  "shows each number for %i ms before finishing",
-  (displayInterval) => {
+test.each([
+  { displayInterval: 1000, numberDuration: 900 },
+  { displayInterval: 800, numberDuration: 700 },
+  { displayInterval: 500, numberDuration: 500 - 500 / 6 },
+  { displayInterval: 300, numberDuration: 250 },
+])(
+  "separates consecutive numbers while preserving the $displayInterval ms interval",
+  ({ displayInterval, numberDuration }) => {
     vi.useFakeTimers();
     const onFinish = vi.fn();
     render(
@@ -26,8 +31,16 @@ test.each([1000, 800, 500, 300])(
       expect(screen.getByRole("main", { name: "ゲーム" }).textContent).toBe(
         String(number),
       );
-      act(() => vi.advanceTimersByTime(displayInterval - 1));
+      act(() => vi.advanceTimersByTime(Math.floor(numberDuration) - 1));
       expect(screen.getByText(String(number))).toBeVisible();
+      act(() => vi.advanceTimersByTime(1));
+      expect(screen.getByText(String(number))).not.toBeVisible();
+      act(() =>
+        vi.advanceTimersByTime(
+          displayInterval - Math.floor(numberDuration) - 1,
+        ),
+      );
+      expect(screen.getByText(String(number))).not.toBeVisible();
       expect(onFinish).not.toHaveBeenCalled();
       act(() => vi.advanceTimersByTime(1));
     }
