@@ -1,6 +1,6 @@
 import SettingOptions from "./SettingOptions";
 
-const displayIntervals = [1000, 800, 500, 300] as const;
+const displayIntervals = [1000, 900, 800, 500, 300] as const;
 
 export type DisplayInterval = (typeof displayIntervals)[number];
 

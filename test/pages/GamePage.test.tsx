@@ -9,6 +9,7 @@ afterEach(() => {
 
 test.each([
   { displayInterval: 1000, numberDuration: 900 },
+  { displayInterval: 900, numberDuration: 800 },
   { displayInterval: 800, numberDuration: 700 },
   { displayInterval: 500, numberDuration: 500 - 500 / 6 },
   { displayInterval: 300, numberDuration: 250 },

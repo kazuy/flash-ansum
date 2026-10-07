@@ -20,10 +20,10 @@ test.each([
     renderSetting: (onChange: (value: number) => void) => (
       <DisplayIntervalSetting value={800} onChange={onChange} />
     ),
-    labels: ["1000 ms", "800 ms", "500 ms", "300 ms"],
+    labels: ["1000 ms", "900 ms", "800 ms", "500 ms", "300 ms"],
     selected: "800 ms",
-    next: "500 ms",
-    nextValue: 500,
+    next: "900 ms",
+    nextValue: 900,
   },
   {
     name: "最大桁数",

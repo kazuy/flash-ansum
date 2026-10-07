@@ -14,6 +14,7 @@ afterEach(() => {
 
 test.each([
   { numberCount: 5, displayInterval: 800, maximumDigits: 1 },
+  { numberCount: 5, displayInterval: 900, maximumDigits: 1 },
   { numberCount: 10, displayInterval: 500, maximumDigits: 2 },
   { numberCount: 15, displayInterval: 300, maximumDigits: 3 },
 ])(
