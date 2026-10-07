@@ -17,7 +17,8 @@ body {
 .top-screen,
 .settings-screen,
 .game-screen,
-.answer-screen {
+.answer-screen,
+.result-screen {
   font-family: "Yomogi", cursive;
   min-height: 100svh;
   display: flex;
@@ -31,7 +32,8 @@ body {
 
 .top-screen h1,
 .settings-screen h1,
-.answer-screen h1 {
+.answer-screen h1,
+.result-screen h1 {
   margin: 0;
   font-size: clamp(2.5rem, 10vw, 4.5rem);
   font-weight: 400;
@@ -40,7 +42,8 @@ body {
 
 .top-screen button,
 .settings-screen button,
-.answer-screen button {
+.answer-screen button,
+.result-screen button {
   max-width: 100%;
   padding: 0.875rem 1.75rem;
   border: 2px solid currentColor;
@@ -55,13 +58,15 @@ body {
 
 .top-screen button:hover,
 .settings-screen button:hover:not(:disabled),
-.answer-screen button:hover:not(:disabled) {
+.answer-screen button:hover:not(:disabled),
+.result-screen button:hover {
   background-color: #ffffff14;
 }
 
 .top-screen button:focus-visible,
 .settings-screen button:focus-visible,
-.answer-screen button:focus-visible {
+.answer-screen button:focus-visible,
+.result-screen button:focus-visible {
   outline: 3px solid #f4f3e9;
   outline-offset: 5px;
 }
@@ -138,11 +143,13 @@ body {
   line-height: 1;
 }
 
-.answer-screen {
+.answer-screen,
+.result-screen {
   gap: 1.5rem;
 }
 
-.answer-screen h1 {
+.answer-screen h1,
+.result-screen h1 {
   font-size: clamp(2rem, 8vw, 3rem);
 }
 
@@ -161,4 +168,32 @@ body {
 .answer-screen input:focus-visible {
   outline: 3px solid #f4f3e9;
   outline-offset: 4px;
+}
+
+.answer-screen form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.result-screen p,
+.result-screen dl {
+  margin: 0;
+}
+
+.result-verdict {
+  font-size: 2rem;
+}
+
+.result-screen dt {
+  font-size: 1.125rem;
+}
+
+.result-screen dd {
+  margin: 0 0 1rem;
+  font-family: system-ui, sans-serif;
+  font-size: 2rem;
+  overflow-wrap: anywhere;
 }
