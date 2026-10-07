@@ -1,8 +1,18 @@
+import { useState } from "react";
+import GameSettingsPage, { type GameSettings } from "./pages/GameSettingsPage";
+import TopPage from "./pages/TopPage";
+
 export default function App() {
-  return (
-    <main className="top-screen">
-      <h1>フラッシュ暗算</h1>
-      <button type="button">ゲームをはじめる</button>
-    </main>
-  );
+  const [currentScreen, setCurrentScreen] = useState<"top" | "settings">("top");
+  const [settings, setSettings] = useState<GameSettings>({
+    numberCount: 5,
+    displayInterval: 800,
+    maximumDigits: 1,
+  });
+
+  if (currentScreen === "top") {
+    return <TopPage onStart={() => setCurrentScreen("settings")} />;
+  }
+
+  return <GameSettingsPage settings={settings} onChange={setSettings} />;
 }
